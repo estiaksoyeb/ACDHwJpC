@@ -117,21 +117,31 @@ This must print a version number. If it prints `Exec format error`, that binary 
 
 ---
 
-## Forcing Gradle to use the ARM64 AAPT2
+## Forcing Gradle to use the ARM64 AAPT2 (Best Practice)
 
-This is the single most important step. Add the following to `gradle.properties` (project root):
+The most effective way to handle the AAPT2 override is to set it **globally** on your phone. This ensures that every project you build on your device works correctly without breaking the project's portability for desktop environments.
 
-```properties
-# Force AGP to fall back to SDK AAPT2 instead of Maven’s x86 binary
-android.aapt2FromMavenOverride=/opt/android-sdk-custom/android-sdk/build-tools/36.1.0/aapt2
+1. **Create or edit the global Gradle properties file:**
+   ```bash
+   mkdir -p ~/.gradle
+   nano ~/.gradle/gradle.properties
+   ```
 
-# Reduce instability on Android devices
-org.gradle.caching=false
-org.gradle.parallel=false
-org.gradle.configureondemand=false
-```
+2. **Add the following line:**
+   ```properties
+   # Global override for ARM64 Android devices
+   android.aapt2FromMavenOverride=/opt/android-sdk-custom/android-sdk/build-tools/36.1.0/aapt2
+   ```
 
-This forces AGP to use the working ARM64 AAPT2 during both app and dependency resource processing.
+3. **In your project's `gradle.properties`,** only include settings that improve stability:
+   ```properties
+   # Reduce instability on Android devices
+   org.gradle.caching=false
+   org.gradle.parallel=false
+   org.gradle.configureondemand=false
+   ```
+
+This approach allows the project to build seamlessly on both your phone (using the global override) and your desktop (using standard Maven binaries).
 
 ---
 
