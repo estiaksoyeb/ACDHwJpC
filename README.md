@@ -35,3 +35,9 @@ rootProject.name = "ComposeStarter"
  * [x] Material 3 Dependencies
  * [x] Crash-proof "Hello World" UI
  * [x] No XML Layouts
+ * [x] **ARM64 Android Support** (Build directly on your phone via Termux)
+
+## 📱 Building on Android (Termux/CLI)
+This project is optimized for building directly on an Android device using the Gradle CLI. For detailed setup instructions, including how to fix AAPT2 architecture mismatches, see:
+
+👉 **[Build with Termux.md](./Build%20with%20Termux.md)**
